@@ -12,7 +12,7 @@ to exploit the spatial nature of the data through the coordinates
 of rows and columns (east "X" and north "Y", respectively).
 }
 \usage{
-pocket.plot(data, graph, X, Y, Z, Iden, ...)
+pocket.plot(data, graph, X, Y, Z, ...)
 }
 
 \arguments{
@@ -23,19 +23,16 @@ PocketPlot of variance by rows, ie horizontal "south-north" (PVR) and PocketPlot
 \item{X}{defined by the spatial coordinates}
 \item{Y}{defined by the spatial coordinates}
 \item{Z}{regionalized variable with which you construct the statistics associated with the probability or standardized variance, these are plotted in the so-called pocket plot}
-\item{Iden}{ logical. The user can, by itself identify the points, T=True or F=False}
-\item{...}{arguments to be passed to ...}
-}
-\details{For identifying outliers, this function uses a modification of the boxplot.with.outlier.label function, available at 
-http://www.r-statistics.com/wp-content/uploads/2011/01/boxplot-add-label-for-outliers.r.txt
+\item{...}{other arguments to be passed to \code{plot}}
 }
 \value{
 returns (or plots) the pocket plot
 }
 \references{
-Cressie, N.A.C. 1993. \emph{Statistics for Spatial Data}. Wiley.
-Gomez, M. and Hazen, K. (1970). Evaluating sulfur and ash distribution in coal seems by statistical
-response surface regression analysis. U.S. Bureau of Mines Report RI 7377.
+Cressie, N.A.C., 1993. \emph{Statistics for Spatial Data}. Wiley.
+
+Gomez, M., Hazen, K., 1970. \emph{Evaluating sulfur and ash distribution in coal seems by statistical
+response surface regression analysis}. U.S. Bureau of Mines Report RI 7377.
 }
 \examples{
 # Core measurements (in \% coal ash) at reoriented locations. 
@@ -46,6 +43,7 @@ response surface regression analysis. U.S. Bureau of Mines Report RI 7377.
 
 # This data is available in the sp and gstat packages
 
+library(gstat) 
 data(coalash) 
 plot(coalash[,1:2], type="n", xlab="x", ylab="y") 
 text(coalash$x,coalash$y,coalash$coalash,cex=0.6)
@@ -60,19 +58,19 @@ text(coalash$x,coalash$y,coalash$coalash,cex=0.6)
 
 # Analysis of local stationarity in probabilities of the coal in south-north direction 
 
-pocket.plot(coalash, "PPR", coalash$x, coalash$y, coalash$coalash, FALSE)
+pocket.plot(coalash, "PPR", coalash$x, coalash$y, coalash$coalash)
 
 # Analysis of local stationarity in variance of the coal in south-north direction 
 
-pocket.plot(coalash, "PVR", coalash$x, coalash$y, coalash$coalash, FALSE) 
+pocket.plot(coalash, "PVR", coalash$x, coalash$y, coalash$coalash) 
 
 # Analysis of local stationarity in probabilities of the coal in east-west direction 
 
-pocket.plot(coalash, "PPC", coalash$x, coalash$y, coalash$coalash, FALSE) 
+pocket.plot(coalash, "PPC", coalash$x, coalash$y, coalash$coalash) 
 
 # Analysis of local stationarity in variance of the coal in east-west direction 
 
-pocket.plot(coalash, "PVC", coalash$x, coalash$y, coalash$coalash, FALSE)
+pocket.plot(coalash, "PVC", coalash$x, coalash$y, coalash$coalash)
 }
 
 \keyword{ spatial }

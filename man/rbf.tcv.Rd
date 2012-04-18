@@ -5,17 +5,17 @@
 rbf cross validation, leave-one-out
 }
 \description{
-Cross validation functions for gaussian (GAU), exponential (EXPON), trigonometric (TRI),
-thin plate spline (TPS), completely regularized spline (CRS), spline with tension (ST), 
-inverse multiquadratic (IM), and multiquadratic (M) radial basis functions (\emph{rbf})
+Cross validation functions for gaussian (GAU), exponential (EXP), trigonometric (TRI),
+thin plate spline (TPS), inverse multiquadratic (IM), and multiquadratic
+(M) radial basis functions (\emph{rbf})
 }
 \usage{
-rbf.tcv(eta, z, coordinates, n.neigh, func)
+rbf.tcv(sigma, z, coordinates, n.neigh, func)
 }
 
 \arguments{
-  \item{eta}{
-value of eta, optimal sigma advisable
+  \item{sigma}{
+value of sigma, optimal sigma advisable
 }
   \item{z}{
 vector of observations associated with the dependent variable, also
@@ -29,8 +29,8 @@ number of nearest observations that should be used for a \emph{rbf}
 prediction, where nearest is defined in terms of the spatial locations
 }
   \item{func}{
-radial basis function model type, e.g. "GAU", "EXPON", "TRI", "TPS",
-"CRS", "ST", "MI" and "M", are currently available
+radial basis function model type, e.g. "GAU", "EXP", "TRI", "TPS",
+"MI" and "M", are currently available
 }
 }
 \details{
@@ -52,8 +52,8 @@ are obtained from cross-validation data points
 \examples{
 data(preci)
 attach(preci)
-rbf.tcv(eta=0.1460814, z=prec, coordinates=preci[,2:3], n.neigh=9,
-	func="TPS")
+rbf.tcv(sigma=0.1460814, z=prec, coordinates=preci[,2:3], n.neigh=9,
+    func="TPS")
 }
 
 \keyword{ spatial }

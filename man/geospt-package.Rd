@@ -14,8 +14,8 @@ design of optimal sampling networks through sequential and simultaneous points m
 \tabular{ll}{
 Package: \tab geospt\cr
 Type: \tab Package\cr
-Version: \tab 0.5-0\cr
-Date: \tab 2012-04-19\cr
+Version: \tab 0.4-9\cr
+Date: \tab 2012-04-18\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab yes\cr
 }

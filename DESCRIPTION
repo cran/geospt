@@ -3,13 +3,12 @@ Type: Package
 Title: Spatial geostatistics; some geostatistical and radial basis
         functions, prediction and cross validation; design of optimal
         spatial sampling networks based on geostatistical modelling
-Version: 0.5-0
-Date: 2012-04-19
+Version: 0.4-9
+Date: 2012-04-18
 Author: Carlos Melo <cmelo@udistrital.edu.co>, Alí Santacruz, Oscar
         Melo <oomelom@unal.edu.co> and others
 Maintainer: Alí Santacruz <amsantac@unal.edu.co>
-Depends: R (>= 2.15.0), geoR, gstat, genalg, limSolve, MASS, plyr,
-        TeachingDemos, gsl
+Depends: R (>= 2.15.0), geoR, gstat, genalg, limSolve, MASS
 Suggests: sgeostat
 Description: This package contains functions for: estimation of the
         variogram through trimmed mean, radial basis functions
@@ -20,6 +19,6 @@ Description: This package contains functions for: estimation of the
 License: GPL (>= 2)
 Encoding: latin1
 LazyLoad: yes
-Packaged: 2012-04-24 14:56:27 UTC; Alí
+Packaged: 2012-04-18 17:01:37 UTC; Alí
 Repository: CRAN
-Date/Publication: 2012-04-24 15:31:01
+Date/Publication: 2012-04-19 07:42:20
