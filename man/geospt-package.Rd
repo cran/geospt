@@ -1,0 +1,32 @@
+\name{geospt-package}
+\alias{geospt-package}
+\alias{geospt}
+\docType{package}
+\title{
+Spatial geostatistics; some geostatistical and radial basis functions, prediction and cross validation; 
+design of optimal spatial sampling networks based on geostatistical modelling
+}
+\description{
+This package contains functions for: estimation of the variogram through trimmed mean, radial basis functions 
+(optimization, prediction and cross-validation), summary statistics from cross-validation, pocket plot, and
+design of optimal sampling networks through sequential and simultaneous points methods}
+\details{
+\tabular{ll}{
+Package: \tab geospt\cr
+Type: \tab Package\cr
+Version: \tab 0.4-9\cr
+Date: \tab 2012-04-18\cr
+License: \tab GPL (>= 2)\cr
+LazyLoad: \tab yes\cr
+}
+}
+\author{
+Carlos Melo <cmelo@udistrital.edu.co>, Alí Santacruz, Oscar Melo <oomelom@unal.edu.co> and others
+
+Maintainer: Alí Santacruz <amsantac@unal.edu.co>
+}
+\keyword{ package }
+\keyword{ spatial }
+\seealso{
+\code{\link{rbf}}, \code{\link{est.variograms}}, \code{\link{seqPtsOptNet}}, \code{\link{simPtsOptNet}} 
+}
