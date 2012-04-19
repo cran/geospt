@@ -40,7 +40,7 @@ data(preci)
 attach(preci)
 
 # optimal sigma
-tab <- rbf.tcv(sigma=1.488733, z=prec, coordinates=preci[,2:3],
+tab <- rbf.tcv(eta=1.488733, z=prec, coordinates=preci[,2:3],
     n.neigh=9, func="M") 
 criterio.cv(tab)
 }
