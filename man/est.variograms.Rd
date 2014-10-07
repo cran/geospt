@@ -28,7 +28,7 @@ classical
 robust,
 \deqn{
 \gamma_{m}(h)=\frac{(\frac{1}{n}\sum_{(i,j)\in N(h)}
-    (\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{|N(h)|}}
+    (\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{n}}
 }
 
 median
@@ -39,7 +39,7 @@ median
 
 and trimmed mean
 \deqn{
-\gamma_{tm}(h)=\frac{(trimmed.mean(\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{|N(h)|}}
+\gamma_{tm}(h)=\frac{(trimmed.mean_{(i,j)\in N(h)}(\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{|N(h)|}}
 }
 
 The \eqn{n} vector contains the number \eqn{|N(h)|} of pairs of points
@@ -74,8 +74,6 @@ Cressie, N.A.C., 1993. \emph{Statistics for Spatial Data}. Wiley.
 Majure, J., Gebhardt, A., 2009. sgeostat: An Object-oriented Framework for Geostatistical Modeling in S+. R package version 1.0-23.
 
 Roustant O., Dupuy, D., Helbert, C., 2007. \emph{Robust Estimation of the Variogram in Computer Experiments}. Ecole des Mines, Département 3MI, 158 Cours Fauriel, 42023 Saint-Etienne, France
-
-\url{http://www.gis.iastate.edu/SGeoStat/homepage.html}
 }
 \note{
 Based on the \code{\link[sgeostat]{est.variogram}} function of the \code{sgeostat} package

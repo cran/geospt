@@ -28,7 +28,7 @@ found by minimizing the root-mean-square prediction errors using cross-validatio
 \emph{eta} and \emph{rho} parameters can be optimized simultaneously, through the \code{\link[nloptr]{bobyqa}} function from \code{nloptr} or  \code{minqa} packages
 }
 \item{n.neigh}{
-number of nearest observations that should be used for a \emph{rbf} prediction, where 'nearest' is defined in terms of the spatial locations
+number of nearest observations that should be used for a \emph{rbf} prediction, where nearest is defined in terms of the spatial locations
 }
 \item{func}{
 radial basis function model type, e.g. "GAU", "EXPON", "TRI", "TPS", "CRS", "ST", "IM" and "M", are currently available}

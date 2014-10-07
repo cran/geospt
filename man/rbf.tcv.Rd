@@ -39,7 +39,7 @@ radial basis function model type, e.g. "GAU", "EXPON", "TRI", "TPS",
 Leave-one-out cross validation (LOOCV) visits a data point, predicts
 the value at that location by leaving out the observed value, and
 proceeds with the next data point. The observed value is left out
-because rbf would otherwise predict the value itself.
+because rbf would otherwise predict the same value 
 }
 \value{
 data frame contain the data coordinates, prediction columns, observed

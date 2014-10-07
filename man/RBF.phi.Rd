@@ -20,7 +20,7 @@ RBF.phi(distance, eta, func)
 }
 \value{
 value obtained from the radial basis function generated with a distance,
-a sigma smoothing parameter, and a function "GAU", "EXPON", "TRI", "TPS",  "CRS", "ST", "IM" or "M"
+a \emph{eta} smoothing parameter, and a function "GAU", "EXPON", "TRI", "TPS",  "CRS", "ST", "IM" or "M"
 }
 \examples{
 data(preci) 

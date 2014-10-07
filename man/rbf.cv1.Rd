@@ -23,7 +23,7 @@ formula that defines the dependent variable as a linear model of independent var
 SpatialPointsDataFrame: should contain the dependent variable, independent variables, and coordinates.
 }
 \item{n.neigh}{
-number of nearest observations that should be used for a \emph{rbf} prediction, where 'nearest' is defined in terms of the spatial locations
+number of nearest observations that should be used for a \emph{rbf} prediction, where nearest is defined in terms of the spatial locations
 }
 \item{func}{
 radial basis function model type, e.g. "GAU", "EXPON", "TRI", "TPS", "CRS", "ST", "IM" and "M", are currently available}
@@ -35,14 +35,14 @@ returns the RMSPE value
 \code{\link{rbf}}
 }
 \examples{
+\dontrun{
 data(preci)
-require(nloptr)
 coordinates(preci) <- ~x+y
 bobyqa(c(0.5, 0.5), rbf.cv1, lower=c(1e-05,0), upper=c(2,2), formula=prec~x+y, data=preci,
     n.neigh=9, func="TRI")
 # obtained with the optimal values previously estimated
 rbf.cv1(c(0.2126191,0.1454171), prec~x+y, preci, n.neigh=9, func="TRI")  
-
+}
 }
 
 \keyword{ spatial }

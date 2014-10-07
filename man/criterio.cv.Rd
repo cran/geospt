@@ -40,7 +40,7 @@ criterio.cv(out)
 
 # multiquadratic function
 data(preci)
-coordinates(preci)~x+y
+coordinates(preci) <- ~x+y
 
 # predefined eta
 tab <- rbf.tcv(prec~x+y,preci,eta=1.488733, rho=0, n.neigh=9, func="M") 

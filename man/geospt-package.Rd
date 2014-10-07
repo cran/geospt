@@ -3,18 +3,17 @@
 \alias{geospt}
 \docType{package}
 \title{
-Spatial geostatistics; some geostatistical and radial basis functions, prediction and cross validation; 
-design of optimal spatial sampling networks based on geostatistical modelling
+Geostatistical Analysis and Design of Optimal Spatial Sampling Networks
 }
 \description{
-This package contains functions for: estimation of the variogram through trimmed mean, radial basis functions 
+A set of functions for: estimation of the variogram through trimmed mean, radial basis functions 
 (optimization, prediction and cross-validation), summary statistics from cross-validation, pocket plot, and
 design of optimal sampling networks through sequential and simultaneous points methods}
 \details{
 \tabular{ll}{
 Package: \tab geospt\cr
 Type: \tab Package\cr
-Version: \tab 1.0-0\cr
+Version: \tab 1.0-1\cr
 Date: \tab 2014-10-07\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab yes\cr
