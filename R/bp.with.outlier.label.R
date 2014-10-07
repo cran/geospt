@@ -13,7 +13,7 @@ bp.with.outlier.label <- function(y, label_name, ..., spread_text = T, data, plo
 
 
 	# jitter_if_duplicate - will jitter (Actually just add a bit of numbers) so to be able to decide on which location to plot the label when having identical variables...
-	require(plyr) # for is.formula and ddply
+	#require(plyr) #for is.formula and ddply
 
 	# a function to jitter data in case of ties in Y's
 	jitter.duplicate <- function(x, only_positive = F)
@@ -88,7 +88,7 @@ bp.with.outlier.label <- function(y, label_name, ..., spread_text = T, data, plo
 	if(length(boxdata$names) == 1 && boxdata$names =="") boxdata$names <- 1	# this is for cases of type: boxplot(y) (when there is no dependent group)
 	if(length(boxdata$out) == 0 ) stop("No outliers detected for this boxplot")
 
-	if(!missing(data)) attach(data)	# this might lead to problams I should check out for alternatives for using attach here...
+	#### if(!missing(data)) attach(data)	# this might lead to problams I should check out for alternatives for using attach here...
 
 
 	# creating a data.frame with information from the boxplot output about the outliers (location and group)
@@ -127,7 +127,7 @@ bp.with.outlier.label <- function(y, label_name, ..., spread_text = T, data, plo
 		# warning("Careful, the use of the 'names' parameter is experimental.  If you notice any errors please e-mail me at: tal.galili@gmail.com")
 		}
 
-	if(!missing(data)) detach(data)	# we don't need to have "data" attached anymore.
+	#### if(!missing(data)) detach(data)	# we don't need to have "data" attached anymore.
 
 	# let's only keep the rows with our outliers
 	boxplot.outlier.data <- function(xx, y_name = "y")
@@ -143,7 +143,7 @@ bp.with.outlier.label <- function(y, label_name, ..., spread_text = T, data, plo
 	# create propor x/y locations to handle over-laping dots...
 	if(spread_text) {
 		# credit: Greg Snow
-		require(TeachingDemos)
+	# require(TeachingDemos)
 		temp_x <- boxdata_outlier_df[,"x"]
 		temp_y1 <- boxdata_outlier_df[,"y"]
 		temp_y2 <- temp_y1

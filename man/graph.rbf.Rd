@@ -2,44 +2,63 @@
 \alias{graph.rbf}
 
 \title{
-graph that describes the behavior of the optimized parameter eta, associated with radial basis function
+Graph that describes the behavior of the optimized \emph{eta} and \emph{rho} parameters, associated with a radial basis function
 }
 \description{
-Function for plotting the RMSPE in several values of smoothing parameter
-eta with the same dataset. A curve is plotted to the points, and
-then from the curve, the optimal eta that provides the smallest
-RMSPE is determined by \code{optimize} function from the \code{stats}
+Function for plotting the RMSPE for several values of the smoothing parameter
+eta with the same dataset. A curve is fitted to the points, and
+then the optimal eta that provides the smallest
+RMSPE is determined from the curve, by the \code{\link[stats]{optimize}} function from the \code{stats}
 package.
 }
 \usage{
-graph.rbf(z, coordinates, newdata, n.neigh, func, np, dmax, n.eta,
-P.T)
+graph.rbf(formula, data, eta.opt, rho.opt, n.neigh, func, np, x0, eta.dmax,
+rho.dmax, P.T, ...)
 }
 
 \arguments{
-\item{z}{vector of observations associated with the dependent variable, also called regionalized variable}
-\item{coordinates}{spatial coordinates \emph{x} and \emph{y}}
-\item{newdata}{ data frame or \emph{x} and \emph{y} locations, where you want to generate new predictions. In the case of a single point, the object must be
-of class matrix}
+\item{formula}{formula that defines the dependent variable as a linear model of independent variables; suppose the dependent variable has name \emph{z}, for a \emph{rbf} detrended use \emph{z~1}; for a \emph{rbf} with trend, suppose \emph{z} is linearly dependent on \emph{x} and \emph{y}, use the formula \emph{z~x+y} (linear trend).}
+\item{data}{SpatialPointsDataFrame: should contain the dependent variable, independent variables, and coordinates.}
+\item{eta.opt}{logical, indicating whether the parameter \emph{eta} should be regarded as fixed (eta.opt = FALSE) or should be estimated (eta.opt = TRUE)}
+\item{rho.opt}{logical, indicating whether the parameter \emph{rho} should be regarded as fixed (rho.opt = FALSE) or should be estimated (rho.opt = TRUE)}
 \item{n.neigh}{number of nearest observations that should be used for a \emph{rbf} prediction, where nearest is defined in terms of the spatial locations}
-\item{func}{function to be optimized. Radial basis function model type, e.g. gaussian "GAU", exponential "EXPON", trigonometric "TRI", thin plate spline 
-"TPS", completely regularized spline "CRS", spline with tension "ST", inverse multiquadratic "IM", and multiquadratic "M", are currently available}
+\item{func}{function to be optimized. The following radial basis function model types are currently available: gaussian "GAU", exponential "EXPON", trigonometric "TRI", thin plate spline "TPS", completely regularized spline "CRS", spline with tension "ST", inverse multiquadratic "IM", and multiquadratic "M", are currently available}
 \item{np}{number of points, where the radial basis function is calculated}
-\item{dmax}{maximum range value which assess the \code{optimize} function, to be searched for the eta minimum}
-\item{n.eta}{factor X axis length, number of times of the smoothing parameter eta}
-\item{P.T}{ logical. Print Table (P.T), T=True or F=False}
+\item{x0}{starting point for searching the optimum. Defaults to c(0.5, 0.5), \emph{eta} and \emph{rho} respectively. Use this statement only if eta and rho are equal to TRUE.}
+\item{eta.dmax}{maximum value of the range of the \emph{eta} parameter that will be evaluated by the \code{\link[stats]{optimize}} function}
+\item{rho.dmax}{maximum value of the range of the \emph{rho} parameter that will be evaluated by the \code{\link[stats]{optimize}} function}
+\item{P.T}{logical. Print Table (TRUE) or not (FALSE)}
+\item{...}{further parameters to be passed to the minimization functions \code{\link{optimize}} or \code{\link[nloptr]{bobyqa}}, typically arguments of the type control() which control the behavior of the minimization algorithm. See documentation about the selected minimization function for further details.
+}
 }
 \value{
-returns a graph that describes the behavior of the optimized parameter eta, and a table of values associated with the graph including optimal smoothing 
-parameter eta
+returns a graph that describes the behavior of the optimized \emph{eta} or \emph{rho} parameter, and a table of values associated with the graph including optimal smoothing 
+\emph{eta} or \emph{rho} parameters. If both \emph{eta} and \emph{rho} are TRUE or FALSE simultaneously, then the function returns a lattice plot of class "trellis" with RMSPE pixel values associated with combinations of \emph{eta} and \emph{rho} parameters.
 }
 \references{
-Johnston K, Ver J, Krivoruchko K, Lucas N. 2001. \emph{Using ArcGIS Geostatistical Analysis ESRI}.
+Johnston, K., Ver, J., Krivoruchko, K., Lucas, N. 2001. \emph{Using ArcGIS Geostatistical Analysis}. ESRI.
 }
 \examples{
+\dontrun{
 data(preci)
-graph.rbf(z=preci$prec, coordinates=preci[,2:3],n.neigh=9, func="TPS", np=40, 
-	dmax=0.3, n.eta=6, P.T=TRUE)
+coordinates(preci)<-~x+y
+# optimizing eta
+graph.rbf(prec~1, preci, eta.opt=TRUE, rho.opt=FALSE, n.neigh=9, func="TPS", 
+    np=40, eta.dmax=0.2, P.T=TRUE)
+# optimizing rho
+graph.rbf(prec~x+y, preci, eta.opt=FALSE, rho.opt=TRUE, n.neigh=9, func="M", 
+    np=20, rho.dmax=2, P.T=TRUE)
+# optimizing eta and rho
+tps.lo <- graph.rbf(prec~1, preci, eta.opt=TRUE, rho.opt=TRUE, n.neigh=9, func="TPS", np=10, 
+    eta.dmax=2, rho.dmax=2, P.T=TRUE)
+tps.lo[[1]]  # best combination of eta and rho obtained
+tps.lo[[2]]  # lattice of RMSPE
+# lattice of RMSPE values associated with a range of eta and rho, without optimization
+tps.l <- graph.rbf(prec~1, preci, eta.opt=FALSE, rho.opt=FALSE, n.neigh=9, func="TPS", 
+    np=10, eta.dmax=2, rho.dmax=2, P.T=TRUE)
+tps.l[[1]]  # best combination of eta and rho obtained
+tps.l[[2]]  # lattice of RMSPE
+}
 }
 
 \keyword{ spatial }

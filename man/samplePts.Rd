@@ -25,16 +25,16 @@ See \code{\link[sp]{spsample}} in the \code{sp} package
 }
 \examples{
 data(lalib)
-
-randomPts <- samplePts(lalib, 5, "random")
-plot(lalib, xlim=c(bbox(lalib)[1],bbox(lalib)[3]), ylim=c(bbox(lalib)[2],
-    bbox(lalib)[4]))
-plot(randomPts, add=TRUE)
-
 hexPts <- samplePts(lalib, 5, "hexagonal")
-plot(lalib, xlim=c(bbox(lalib)[1],bbox(lalib)[3]), ylim=c(bbox(lalib)[2],
+plot(lalib, xlim=c(bbox(lalib)[1], bbox(lalib)[3]), ylim=c(bbox(lalib)[2],
     bbox(lalib)[4]))
 plot(hexPts, add=TRUE)
+\dontrun{
+randomPts <- samplePts(lalib, 5, "random")
+plot(lalib, xlim=c(bbox(lalib)[1], bbox(lalib)[3]), ylim=c(bbox(lalib)[2],
+    bbox(lalib)[4]))
+plot(randomPts, add=TRUE)
+}
 }
 
 \keyword{ spatial }

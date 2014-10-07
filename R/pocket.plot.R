@@ -15,9 +15,14 @@
 
 
 assign("pocket.plot",
-   function(data, graph, X, Y, Z, Iden,...){
+   function(data, graph, X, Y, Z, Iden, ...){
 if(!is.logical(Iden))  stop(paste("Iden must be logical class"))
-Pocket.plotA<-function(datos,statistical,X,Y,Z,Iden,direct,xlab){
+if (!is.numeric(X) || !is.numeric(Y) || !all(is.finite(X)) || !all(is.finite(Y)))
+stop("invalid coordinates")
+if (length(X) != length(Y))
+stop("coordinate lengths differ")
+
+Pocket.plotA<-function(data,statistical,X,Y,Z,Iden,direct,xlab){
 grid.mat<-tapply(Z,list(factor(Y),factor(X)),mean)
 grid.matt<-grid.mat[max(nrow(grid.mat)):1,]
 par(mfrow=c(1,1), mar=c(4,4.5,2.5,2.5))
@@ -33,7 +38,7 @@ vect<-function(grid.matt,j){
 matriz<-vect(grid.matt,1:ncol(grid.matt))
 
 b<-matrix(matriz[1:nrow(grid.matt)-1,],nrow=nrow(grid.matt)-1)
-y.barra<-mean(b,na.rm=T)
+y.barra<-mean(b,na.rm=TRUE)
 
 
 poc<-function(grid.matt,i,j){
@@ -60,8 +65,8 @@ media.conteo<-function(f,x){
     mean.f<- matrix(rep(0,nrow(f[,,1])*nrow(f[,,1])),nrow(f[,,1]),nrow(f[,,1]))
     U<- matrix(rep(0,nrow(f[,,1])*nrow(f[,,1])),nrow(f[,,1]),nrow(f[,,1]))
     for(j in 1:nrow(f[,,1])){
-    mean.f[j,]<-apply(f[,,j],1,mean,na.rm=T)
-    U[j,]<- apply(f[,,j],1,sum,na.rm=T)
+    mean.f[j,]<-apply(f[,,j],1,mean,na.rm=TRUE)
+    U[j,]<- apply(f[,,j],1,sum,na.rm=TRUE)
     }
     switch(x,
     media.barra=mean.f,
@@ -82,23 +87,23 @@ tabla1<-tabla[max(nrow(tabla)):1,]
 N1<-as.vector(t(tablaN))
 tabla2<-na.omit(data.frame(P=as.vector(t(tabla1)),group=rep(factor(colnames(tabla1),levels=colnames(tabla1)),nrow(tabla1)),group1=rep(factor(rownames(tabla1),levels=rownames(tabla1)),rep(ncol(tabla1),ncol(tabla1))),N1,Q=(N1^0.5)*((as.vector(t(tabla1+y.barra))/y.barra)-1)))
 Prob<-function(P,Iden){
-ifelse(Iden==F,bp.with.outlier.label(tabla2$P~tabla2$group1, tabla2$group, data=tabla2, main = paste("POCKET-PLOT in", direct, "direction"), 
-col.main="blue", col=4, cex=0.4, out=T, ylab= expression(P[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2, 
-spread_text = T),boxplot(P~group1, data=tabla2, main = paste("POCKET-PLOT in", direct, "direction"), col.main="blue", col=4, cex=0.7, out=T, 
+ifelse(Iden==FALSE,bp.with.outlier.label(tabla2$P~tabla2$group1, tabla2$group, data=tabla2, main = paste("POCKET-PLOT in", direct, "direction"), 
+col.main="blue", col=4, cex=0.4, out=TRUE, ylab= expression(P[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2, 
+spread_text = TRUE),boxplot(P~group1, data=tabla2, main = paste("POCKET-PLOT in", direct, "direction"), col.main="blue", col=4, cex=0.7, out=TRUE, 
 ylab= expression(P[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2))
 box(lty = 'solid', col = 'blue', lwd=2)
 abline(h=0, col="green")
-ifelse(Iden==T,identify(tabla2$group1, tabla2$P, tabla2$group, cex=0.8),"")
+ifelse(Iden==TRUE,identify(tabla2$group1, tabla2$P, tabla2$group, cex=0.8),"")
 }
                             
 Var<-function(V,Iden){
-ifelse(Iden==F,bp.with.outlier.label(tabla2$Q~tabla2$group1, tabla2$group, data=tabla2, main = paste("POCKET-PLOT of Standardized Variance in", direct, 
-"direction"), col.main="blue", col=4, cex=0.7, out=T, ylab= expression(Q[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2, 
-spread_text = T),boxplot(Q~group1, data=tabla2, main = paste("POCKET-PLOT of Standardized Variance in", direct, "direction"), col.main="blue", col=4, cex=0.7, 
-out=T, ylab= expression(Q[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2))
+ifelse(Iden==FALSE,bp.with.outlier.label(tabla2$Q~tabla2$group1, tabla2$group, data=tabla2, main = paste("POCKET-PLOT of Standardized Variance in", direct, 
+"direction"), col.main="blue", col=4, cex=0.7, out=TRUE, ylab= expression(Q[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2, 
+spread_text = TRUE),boxplot(Q~group1, data=tabla2, main = paste("POCKET-PLOT of Standardized Variance in", direct, "direction"), col.main="blue", col=4, cex=0.7, 
+out=TRUE, ylab= expression(Q[jk]), xlab=paste(xlab, "Number"), lwd=1.5, col.main="blue", col.lab="blue", cex.lab=1.2))
 box(lty = 'solid', col = 'blue', lwd=2)
 abline(h=0, col="green")
-ifelse(Iden==T,identify(tabla2$group1, tabla2$Q, tabla2$group, cex=0.8),"")
+ifelse(Iden==TRUE,identify(tabla2$group1, tabla2$Q, tabla2$group, cex=0.8),"")
 }
 
 
@@ -110,10 +115,10 @@ V=Var(tabla2, Iden)
 }
 
 switch(graph,
-PPR=Pocket.plotA(datos, "P", X, Y, Z, direc="south-north", xlab="Row", Iden),
-PPC=Pocket.plotA(datos, "P", Y, X, Z, direc="east-west", xlab="Column", Iden),
-PVR=Pocket.plotA(datos, "V", X, Y, Z, direc="south-north", xlab="Row", Iden),
-PVC=Pocket.plotA(datos, "V", Y, X, Z, direc="east-west", xlab="Column", Iden),
+PPR=Pocket.plotA(data, "P", X, Y, Z, direc="south-north", xlab="Row", Iden),
+PPC=Pocket.plotA(data, "P", Y, X, Z, direc="east-west", xlab="Column", Iden),
+PVR=Pocket.plotA(data, "V", X, Y, Z, direc="south-north", xlab="Row", Iden),
+PVC=Pocket.plotA(data, "V", Y, X, Z, direc="east-west", xlab="Column", Iden),
 )
 
 })

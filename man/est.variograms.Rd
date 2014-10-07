@@ -28,18 +28,18 @@ classical
 robust,
 \deqn{
 \gamma_{m}(h)=\frac{(\frac{1}{n}\sum_{(i,j)\in N(h)}
-    (\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{n}}
+    (\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{|N(h)|}}
 }
 
 median
 \deqn{
 \gamma_{me}(h)=\frac{\mbox(median_{(i,j)\in N(h)}
-     (\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{n}}
+     (\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{|N(h)|}}
 }
 
 and trimmed mean
 \deqn{
-\gamma_{tm}(h)=\frac{(trimmed.mean(\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{n}}
+\gamma_{tm}(h)=\frac{(trimmed.mean(\sqrt{|z(x_{i})-z(x_{j})|}))^{4}}{0.457+\frac{0.494}{|N(h)|}}
 }
 
 The \eqn{n} vector contains the number \eqn{|N(h)|} of pairs of points

@@ -1,7 +1,5 @@
-
 assign("RBF.phi",
  function(distance, eta, func){
-#if(func=="CRS")  library(gsl)               
 switch(func,                                      
 ST = ifelse(distance>0,log(eta*distance/2)+ besselK(distance*eta,0) + 0.5772161, 0),                          
 CRS = ifelse(distance>0,log((eta*distance/2)^2) + ifelse(expint_E1((eta*distance/2)^2)=="NaN",0,expint_E1((eta*distance/2)^2)) + 0.5772161, 0),  

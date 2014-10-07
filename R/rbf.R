@@ -1,24 +1,43 @@
-
 assign("rbf",
-   function(eta, z, coordinates, newdata, n.neigh, func){
-   if(func=="TPS") library(limSolve)
-   rbf.pred <- as.data.frame(matrix(NA,nrow= nrow(newdata), ncol=4))
-   colnames(rbf.pred) <- c("x","y","var1.pred","var1.var")
-rbf0 <- function(eta, z, coordinates, newdata, n.neigh, func){   
-   dist.newdata <- as.numeric(Dis(coordinates,newdata))
-   neigh.orden <- order(dist.newdata)                                               # vecinos ordenados
-   dist.neigh.cerca <- dist.newdata[neigh.orden[1:n.neigh]]                         # vecinos mas cercanos
-   m.dist.neigh <- as.matrix(dist(coordinates[neigh.orden[1:n.neigh],])) 
-   phi <- RBF.phi(m.dist.neigh,eta,func)
-   PHI.Matriz <- rbind(as.matrix(cbind(phi, 1)),c(rep(1,n.neigh),0))
-   b <- RBF.phi(dist.neigh.cerca,eta,func)
-   PHI.Vector <- as.matrix(c(b,1))
-   W.rbf <- if(func=="TPS") Solve(PHI.Matriz, PHI.Vector) else solve(PHI.Matriz, PHI.Vector)
-   RBF.pred <- W.rbf[1:n.neigh]%*%z[as.numeric(colnames(phi))]
-   RBF.pred
-}
-rbf.pred[,3] <- apply(newdata, 1, rbf0, eta=eta, z=z, coordinates=coordinates, n.neigh=n.neigh, func=func)
-rbf.pred[,1:2] <- newdata
+   function(formula, data, eta, rho, newdata, n.neigh, func){
+
+Dist.r <- vector(mode="list", length=nrow(coordinates(newdata)))
+s = coordinates(data)
+Dist.r <- lapply(Dist.r,function(x) x<-s)
+s0 = coordinates(newdata)
+z = extractFormula(formula, data, newdata)$z
+X0 = extractFormula(formula, data, newdata)$X
+x0 = extractFormula(formula, data, newdata)$x0
+dist.newdata <- rdist(s,s0)
+vec.orden <- apply(dist.newdata,2,function(x) x<-x[order(x)][1:n.neigh])
+vec.orden1 <- apply(dist.newdata,2,function(x) x<-order(x)[1:n.neigh])
+I.PHI.M <-lapply(1:nrow(coordinates(newdata)),function(i) {
+if (func == "M" | func == "ST" | func == "CRS" | func == "TPS" | func == "TRI" )
+solve(RBF.phi(rdist(Dist.r[[i]][vec.orden1[,i],])-diag(rdist(Dist.r[[i]][vec.orden1[,i],])),eta,func)+rho*diag(n.neigh))
+else
+chol2inv(chol(RBF.phi(rdist(Dist.r[[i]][vec.orden1[,i],])-diag(rdist(Dist.r[[i]][vec.orden1[,i],])),eta,func)+rho*diag(n.neigh)))
+})
+
+b <- RBF.phi(vec.orden,eta,func)
+X <- vector(mode="list", length=nrow(coordinates(newdata)))
+Xi <- lapply(X,function(x) x<-X0)
+
+XT <- lapply(1:nrow(coordinates(newdata)),function(i) Xi[[i]][vec.orden1[,i],])
+
+rm(vec.orden,Xi)
+
+Lambda <-lapply(1:nrow(coordinates(newdata)),function(i) I.PHI.M[[i]]%*%(b[,i]-XT[[i]]%*%(solve(t(XT[[i]])%*%I.PHI.M[[i]]%*%XT[[i]]))%*%(t(XT[[i]])%*%I.PHI.M[[i]]%*%b[,i]-x0[i,])))
+
+remove(I.PHI.M,XT,x0)
+
+pred <- lapply(1:nrow(coordinates(newdata)),function(i) t(Lambda[[i]])%*%z[vec.orden1[,i]])
+rm(vec.orden1)
+
+rbf.pred <- as.data.frame(matrix(NA,nrow= nrow(coordinates(newdata)), ncol=4))
+colnames(rbf.pred) <- c("x","y","var1.pred","var1.var")
+rbf.pred[,1:2] <- s0
+rbf.pred[,3] <- unlist(pred)
 rbf.pred
 }
 )
+

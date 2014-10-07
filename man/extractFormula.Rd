@@ -1,5 +1,5 @@
-\name{Dis}
-\alias{Dis}
+\name{extractFormula}
+\alias{extractFormula}
 
 \title{
 geospt internal function
@@ -12,4 +12,3 @@ This function is not meant to be called by users directly
 }
 
 \keyword{ spatial }
-

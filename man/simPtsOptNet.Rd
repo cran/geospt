@@ -5,11 +5,11 @@
 Design of optimal sampling networks through the simultaneous points method
 }
 \description{
-Search for an optimum set of simultaneous additional points to an initial network that minimize the average standard error of kriging, using a genetic algorithm. It takes as input to optimize, the minimum and maximum values of the coordinates that enclose the study area. This function uses previous samples information to direct
+Search for an optimum set of simultaneous additional points to an initial network that minimize the average standard error of kriging, using a genetic algorithm. It takes, as input for the optimization, the minimum and maximum values of the coordinates that enclose the study area. This function uses previous samples information to direct
 additional sampling for minimum average standard error. The algorithm generates random sampling schemes. 
 }
 \usage{
-simPtsOptNet(formula, locations, spDatF, fitmodel, n, popSize, 
+simPtsOptNet(formula, loc=NULL, data, fitmodel, BLUE=FALSE, n, popSize, 
 generations, xmin, ymin, xmax, ymax, plotMap=FALSE, spMap=NULL, ...)
 }
 
@@ -21,14 +21,16 @@ formula that defines the interpolation method to be used. In this parameter, a d
   kriging, suppose \code{z} is linearly dependent on \code{x} and \code{y},
   use the formula \code{z~x+y}. See the \code{gstat} package for details
 }
-  \item{locations}{
+  \item{loc}{
 object of class Spatial, or (deprecated) formula that defines the spatial data locations (coordinates) such as ~x+y; see the \code{gstat} package for details
 }
-  \item{spDatF}{
+  \item{data}{
 data frame containing the dependent variable, independent variables, and coordinates; see the \code{gstat} package for details
 }
   \item{fitmodel}{
 variogram model of dependent variable (or its residuals), defined by a call to \code{vgm} or \code{fit.variogram}; see the \code{gstat} package for details
+}
+  \item{BLUE}{logical; if TRUE return the BLUE trend estimates only, if FALSE return the BLUP predictions (kriging); see \code{\link[gstat]{predict.gstat}} in the \code{gstat} package for details
 }
   \item{n}{
 number of additional points to be added to the original network
@@ -65,14 +67,17 @@ other arguments to be passed to \code{gstat} or \code{rbga}
 an object of class rbga containing the population and the evaluation of the objective function for each chromosome in the last generation, the best and mean evaluation value in each generation, and additional information
 }
 \references{
-Delmelle, E., 2005. \emph{Optimization of second-phase spatial sampling using auxiliary information}. Ph.D. Thesis, Dept. Geography, State University of New York, Buffalo, NY.
+Santacruz, A., Rubiano, Y., Melo, C., 2014. \emph{Evolutionary optimization of spatial sampling networks designed for the monitoring of soil carbon}. In: Hartemink, A., McSweeney, K. (Eds.). \emph{Soil Carbon. Series: Progress in Soil Science}. (pp. 77-84). Springer. \href{http://link.springer.com/chapter/10.1007/978-3-319-04084-4_8}{[link]}
 
-Santacruz, A., 2011. \emph{Evolutionary optimization of spatial sampling networks. An application of genetic algorithms and geostatistics for the monitoring of soil organic carbon}. Editorial Académica Española. 183 p. ISBN: 978-3-8454-9815-7 (In Spanish)
+Santacruz, A., 2011. \emph{Evolutionary optimization of spatial sampling networks. An application of genetic algorithms and geostatistics for the monitoring of soil organic carbon}. Editorial Académica Española. 183 p. ISBN: 978-3-8454-9815-7 (In Spanish) \href{http://www.amazon.com/Optimización-evolutiva-redes-espaciales-muestreo/dp/3845498153/}{[link]}
+
+Delmelle, E., 2005. \emph{Optimization of second-phase spatial sampling using auxiliary information}. Ph.D. Thesis, Dept. Geography, State University of New York, Buffalo, NY.
 }
 \seealso{
 See \code{\link[genalg]{rbga}} in the \code{genalg} package and \code{\link[gstat]{krige}} in the \code{gstat} package
 }
 \examples{
+\dontrun{
 ## Load data
 data(COSha30)
 data(COSha30map)
@@ -80,7 +85,7 @@ data(lalib)
 
 ## Calculate the sample variogram for data, generate the variogram model and  
 ## fit ranges and/or sills from the variogram model to the sample variogram
-ve <- variogram(CorT~1, loc=~x+y, data=COSha30, width = 236.0536)
+ve <- variogram(CorT~ 1, loc=~x+y, data=COSha30, width = 236.0536)
 PSI <- 0.0001531892; RAN <- 1031.8884; NUG <- 0.0001471817
 m.esf <- vgm(PSI, "Sph", RAN, NUG)
 (m.f.esf <- fit.variogram(ve, m.esf))
@@ -89,13 +94,13 @@ m.esf <- vgm(PSI, "Sph", RAN, NUG)
 npoints <- 5
 
 ## Optimize the location of the additional points
-## Only 25 generations are evaluated in this example
+## Only 20 generations are evaluated in this example (using ordinary kriging)
 ## Users can visualize how the location of the additional points is optimized 
 ## if plotMap is set to TRUE
 old.par <- par(no.readonly = TRUE)
 par(ask=FALSE)
-optnets <- simPtsOptNet(CorT~ 1, loc=~ x+y, COSha30, m.f.esf, n=npoints, 
-    popSize=30, generations=25, xmin=bbox(lalib)[1], ymin=bbox(lalib)[2], 
+optnets <- simPtsOptNet(CorT~ 1, loc=~x+y, COSha30, m.f.esf, n=npoints, 
+    popSize=30, generations=20, xmin=bbox(lalib)[1], ymin=bbox(lalib)[2], 
     xmax=bbox(lalib)[3], ymax=bbox(lalib)[4], plotMap=TRUE, spMap=lalib)
 par(old.par)
 
@@ -117,5 +122,16 @@ spplot(COSha30map, "var1.pred", main="Location of the optimized points",
 
 ## Average standard error of the optimized additional points
 min(optnets$evaluations)
+}
+
+## Multivariate prediction is also enabled:
+\dontrun{
+ve <- variogram(CorT~ DA30, loc=~x+y, data=COSha30, width = 236.0536)
+(m.f.esf <- fit.variogram(ve, m.esf))
+
+optnetsMP <- simPtsOptNet(CorT~ DA30, loc=~x+y, COSha30, m.f.esf, n=npoints, 
+    popSize=30, generations=25, xmin=bbox(lalib)[1], ymin=bbox(lalib)[2], 
+    xmax=bbox(lalib)[3], ymax=bbox(lalib)[4], plotMap=TRUE, spMap=lalib)
+}
 }
 \keyword{ spatial }

@@ -1,5 +1,7 @@
-assign("rbf.cv",
-  function(formula, data, eta, rho, n.neigh, func){
+assign("rbf.cv1",
+   function(param, formula, data, n.neigh, func){
+  eta <- param[1]
+  rho <- param[2]
   z = extractFormula(formula, data, newdata=data)$z
   rbf.pred <- as.data.frame(matrix(NA,nrow= length(z), ncol=4))
   colnames(rbf.pred) <- c("x","y","var1.pred","var1.var")

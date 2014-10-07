@@ -6,8 +6,8 @@ graphs the probability or standardized variance in the directions north-south or
 }
 \description{
 The pocket-plot (so named because of its use in detecting pockets
-of non-stationarity) is a necessary technique to identify a localized
-area atypical with respect to the stationarity model. It is built
+of non-stationarity) is a technique necessary to identify a localized
+area that is atypical with respect to the stationarity model. It is built
 to exploit the spatial nature of the data through the coordinates
 of rows and columns (east "X" and north "Y", respectively).
 }
@@ -23,29 +23,31 @@ PocketPlot of variance by rows, ie horizontal "south-north" (PVR) and PocketPlot
 \item{X}{defined by the spatial coordinates}
 \item{Y}{defined by the spatial coordinates}
 \item{Z}{regionalized variable with which you construct the statistics associated with the probability or standardized variance, these are plotted in the so-called pocket plot}
-\item{Iden}{ logical. The user can, by itself identify the points, T=True or F=False}
+\item{Iden}{ logical. The users can identify the points by themselves, TRUE or FALSE}
 \item{...}{arguments to be passed to ...}
 }
 \details{For identifying outliers, this function uses a modification of the boxplot.with.outlier.label function, available at 
-http://www.r-statistics.com/wp-content/uploads/2011/01/boxplot-add-label-for-outliers.r.txt
+\url{http://www.r-statistics.com/wp-content/uploads/2011/01/boxplot-with-outlier-label-r.txt}
 }
 \value{
 returns (or plots) the pocket plot
 }
 \references{
 Cressie, N.A.C. 1993. \emph{Statistics for Spatial Data}. Wiley.
-Gomez, M. and Hazen, K. (1970). Evaluating sulfur and ash distribution in coal seems by statistical
-response surface regression analysis. U.S. Bureau of Mines Report RI 7377.
+
+Gomez, M., Hazen, K. 1970. \emph{Evaluating sulfur and ash distribution in coal seems by statistical
+response surface regression analysis}. U.S. Bureau of Mines Report RI 7377.
 }
 \examples{
 # Core measurements (in \% coal ash) at reoriented locations. 
 # Units on the vertical axis are \% coal ash.
 
-# This data recording was found in mining samples originally reported by 
+# These data was found in mining samples originally reported by 
 # Gomez and Hazen (1970), and later used by Cressie (1993). 
 
-# This data is available in the sp and gstat packages
+# These data are available in the sp and gstat packages
 
+library(gstat)
 data(coalash) 
 plot(coalash[,1:2], type="n", xlab="x", ylab="y") 
 text(coalash$x,coalash$y,coalash$coalash,cex=0.6)

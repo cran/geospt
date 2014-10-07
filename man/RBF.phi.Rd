@@ -2,7 +2,7 @@
 \alias{RBF.phi}
 
 \title{
-titulo RBF.phi
+radial basis function evaluation
 }
 \description{
 generate the value associated with radial basis functions; gaussian GAU), exponential (EXPON),
@@ -15,7 +15,7 @@ RBF.phi(distance, eta, func)
 
 \arguments{
 \item{distance}{corresponds to the Euclidean distance between two points in space}
-\item{eta}{The optimal smoothing parameter is found by minimizing the root-mean-square prediction errors using cross-validation}
+\item{eta}{the optimal smoothing parameter is found by minimizing the root-mean-square prediction errors using cross-validation}
 \item{func}{radial basis function model type, e.g. "GAU", "EXPON", "TRI", "TPS", "CRS", "ST", "IM" and "M", are currently available}
 }
 \value{
