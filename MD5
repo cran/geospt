@@ -1,5 +1,5 @@
-16687b26efb72cf8b45079fc84366b63 *DESCRIPTION
-05d0a027b8f29fb02e636f62e2dc4927 *NAMESPACE
+c6ce5ff12bea67d4b3073357be32ca02 *DESCRIPTION
+a772c8ae473a386d21e046737ecb66cd *NAMESPACE
 614d8f774d8f6bc75917ca7b05268409 *R/RBF.phi.R
 e49f40ff7b8a7724e6ab1e12fde2925a *R/bestnet.R
 82d46e0aca2ae7fb5a95df742d85cc63 *R/bp.with.outlier.label.R
@@ -35,7 +35,7 @@ f2e3d0e4dcfa9702a48deb949e496b53 *man/COSha10map.Rd
 b70f1bd6bf91d756c07e4299b6a9a6d2 *man/criterio.cv.Rd
 8849856dec9b2b0cd39cb1d9fc747ea9 *man/est.variograms.Rd
 e89be838e23f35681044671ad97c4b78 *man/extractFormula.Rd
-6ebf9ae9a27ab1bc3528d6af86564479 *man/geospt-package.Rd
+9c99df135f7ab150429bd30b69651286 *man/geospt-package.Rd
 0b3c348324ee9341d82fad22d268b157 *man/graph.rbf.Rd
 187c07c49f05318b3161020f1d47cb73 *man/lalib.Rd
 a9a1fbe53d90645e0e80a7f0274fd534 *man/network.design.Rd
@@ -46,5 +46,5 @@ a9a1fbe53d90645e0e80a7f0274fd534 *man/network.design.Rd
 ea0b742c4dce6160eec71f7af1ebab78 *man/rbf.cv1.Rd
 457d322d7493de1a7bcaf20bdcef03a6 *man/rbf.tcv.Rd
 a03fca8363152d684a2c4cd960d591cc *man/samplePts.Rd
-87eefbb1a8dd3d940d48a7d239ef82bd *man/seqPtsOptNet.Rd
+11db394572739bc7506dd4f3ae59eed8 *man/seqPtsOptNet.Rd
 6172d864775e8ffca16e64607ff87bbf *man/simPtsOptNet.Rd
