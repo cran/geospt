@@ -24,7 +24,7 @@ npoints, boundary=NULL, type, ...)
 \item{ymax}{maximum \code{y}-coordinate of the study area.}
 \item{boundary}{SpatialPolygons or SpatialPolygonsDataFrame object}
 \item{type}{character; "random" for completely spatial random; "regular" for regular (systematically aligned) sampling; "stratified" for stratified random (one single random location in each "cell"); "nonaligned" for nonaligned systematic sampling (nx random y coordinates, ny random x coordinates); "hexagonal" for sampling on a hexagonal lattice; "clustered" for clustered sampling; "Fibonacci" for Fibonacci sampling on the sphere (see references). By default type ="regular".}
-\item{...}{further arguments will be passed of the \code{\link{krige}} and \code{\link{spsample}} functions.}
+\item{...}{further arguments will be passed of the \code{\link[gstat]{krige}} and \code{\link[sp]{spsample}} functions.}
 }
 \references{
 Fibonacci sampling: Alvaro Gonzalez, 2010. \emph{Measurement of Areas on a Sphere Using Fibonacci and Latitude-Longitude Lattices}. Mathematical Geosciences 42(1), p. 49-64
@@ -33,7 +33,7 @@ Fibonacci sampling: Alvaro Gonzalez, 2010. \emph{Measurement of Areas on a Spher
 returns the \code{AKSE} value associated with the spatial distribution of points and the kriging method used.
 }
 \seealso{
-\code{\link{krige}},  \code{\link{krige.cv}}, \code{\link{spsample}}, \code{\link{point.in.polygon}}, \code{\link{sample}}
+\code{\link[gstat]{krige}},  \code{\link[gstat]{krige.cv}}, \code{\link[sp]{spsample}}, \code{\link[sp]{point.in.polygon}}, \code{\link{sample}}
 }
 \examples{
 \dontrun{
@@ -44,24 +44,21 @@ vgmuk <- vgm(53.064, "Sph", 2.8858,0)
 vgmuk2 <- vgm(19.201, "Sph", 1.5823,0)
 # network: ordinary kriging (without boundary)
 net1.ok <- network.design(z~1,vgmok, xmin=0,xmax=10, ymin=0, ymax=10, npoint.x=10,
-    npoint.y=10, nmax=6)
+                          npoint.y=10, nmax=6)
 net2.ok <- network.design(z~1,vgmok, xmin=0,xmax=10, ymin=0, ymax=10, npoint.x=20,
-    npoint.y=20, nmax=6)
+                          npoint.y=20, nmax=6)
 # it's worth noting that the variograms are different in each kriging
-
 # network: simple kriging (without boundary)
-
 net1.sk <- network.design(z~1,vgmsk, xmin=0,xmax=10, ymin=0, ymax=10, npoint.x=10,
-    npoint.y=10, nmax=6, beta=2)
+                          npoint.y=10, nmax=6, beta=2)
 net2.sk <- network.design(z~1,vgmsk, xmin=0,xmax=10, ymin=0, ymax=10, npoint.x=20,
-    npoint.y=20, nmax=6, beta=2)
+                          npoint.y=20, nmax=6, beta=2)
+# network: universal kriging, first order trend (without boundary)
+net1.uk <- network.design(z~x + y,vgmuk, xmin=0,xmax=10, ymin=0, ymax=10,
+                          npoint.x=10, npoint.y=10, nmax=8)
 # network: universal kriging, second order trend (without boundary)
-net1.uk <- network.design(z~x + y + x*y + I(x^2)+I(y^2),vgmuk, xmin=0,xmax=10, ymin=0,
-    ymax=10, npoint.x=10, npoint.y=10, nmax=8)
 net2.uk <- network.design(z~x + y + x*y + I(x^2)+I(y^2),vgmuk2, xmin=0,xmax=10, ymin=0,
-    ymax=10, npoint.x=20, npoint.y=20, nmax=8)
-
-
+                          ymax=10, npoint.x=20, npoint.y=20, nmax=8)
 # Creating the grid with the prediction and plotting points
 library(geoR)
 data(ca20)
@@ -72,18 +69,17 @@ vgmok.ca <- vgm(112.33, "Sph", 244.9,0)
 vgmsk.ca <- vgm(100, "Sph", 150.2,0)
 vgmuk.ca <- vgm(85.57, "Sph", 110.5,0)
 vgmuk2.ca <- vgm(62.14, "Sph", 89.7,0)
-
 # network: ordinary kriging (with boundary)
 netb1.ok<- network.design(z~1, vgmok.ca, npoints=50, boundary=Polygon, nmax=6)
 netb2.ok<- network.design(z~1, vgmok.ca, npoints=100, boundary=Polygon, nmax=6)
 # network: simple kriging (with boundary)
 netb1.sk <- network.design(z~1, vgmsk.ca, npoints=50, boundary=Polygon, nmax=6, beta=2)
 netb2.sk <- network.design(z~1, vgmsk.ca, npoints=100, boundary=Polygon, nmax=6, beta=2)
+# network: universal kriging, first order trend (with boundary)
+netb1.uk <- network.design(z~x + y, vgmuk.ca, npoints=50, boundary=Polygon, nmax=8)
 # network: universal kriging, second order trend (with boundary)
-netb1.uk <- network.design(z~x + y + x*y + I(x^2)+I(y^2), vgmuk.ca, npoints=50,
-    boundary=Polygon, nmax=8)
 netb2.uk <- network.design(z~x + y + x*y + I(x^2)+I(y^2), vgmuk2.ca, npoints=100,
-    boundary=Polygon, nmax=8)
+                           boundary=Polygon, nmax=8)
 }
 }
 
