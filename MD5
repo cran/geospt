@@ -1,5 +1,5 @@
-fd5ba589de896a0cb325d66db60537dc *DESCRIPTION
-99a99189e35389de3ee46ab1083a6b19 *NAMESPACE
+8500fa4f0344a5d42f6ed62b32d750ce *DESCRIPTION
+cdbe0de6433497f1e9b9540687c66ffe *NAMESPACE
 8b4d588bf298c46a123cdde730dd25e3 *R/RBF.phi.R
 fa31eff1004657b00aca5a56a2df42b9 *R/bestnet.R
 425b6283eeed2ff2f0d5aed5861d71c1 *R/bp.with.outlier.label.R
@@ -11,7 +11,7 @@ d5f316c42daa077f7617ee49c5348f59 *R/graph.rbf.R
 51f692b4c86d3c098ae7fc3edf7a0d16 *R/idw.cv.R
 de96c241fbee8d2f826f6a49021790d3 *R/network.design.R
 694bc5b178df56a1a09069971fb51a4c *R/pocket.plot.R
-fb65ad93648d4c4c4564b0558f8dcaf0 *R/rbf.R
+939611211e4f9c09ca8f9f22fb3b2457 *R/rbf.R
 c299173b04d4a6afd0e4723382404e76 *R/rbf.cv.R
 914e4293269ec17c211538effd257b34 *R/rbf.cv1.R
 d97955a25d65dc2aabd7b19e45b1f948 *R/rbf.tcv.R
@@ -28,7 +28,7 @@ d244d1c01fc000fb7c403914053579a1 *data/ariari.rda
 f4f3367902fcfc796c3975184f2de94c *data/preci.rda
 aa6dbbc806cc8f75a18508f28085c706 *demo/00Index
 a5388b3638b63b86e7a9bbe8257520f2 *demo/geosptDemo.R
-815d66105dc2722b62ff4ea0f67b1271 *inst/CITATION
+15ab775a895b4f992b36529054406e3e *inst/CITATION
 a2db8659256f5d0d730975a88dd556af *man/COSha10.Rd
 a4cc824fe325c79869dbb97de109618b *man/COSha10map.Rd
 a1f9e92d5b076293df80b28f187be4e2 *man/COSha30.Rd
@@ -41,7 +41,7 @@ cdb136146aac488956686085eb3b81d8 *man/ariprec.Rd
 73348672f7eaf24f80ea287e703075eb *man/criteria.cv.Rd
 a26e17cda33c262164dd88c45cde10f3 *man/est.variograms.Rd
 e89be838e23f35681044671ad97c4b78 *man/extractFormula.Rd
-ffb65864a4d41ec817ab3d94d8b3b2ff *man/geospt-package.Rd
+bbf329313ebe7ae5b8dd5c0763d9532c *man/geospt-package.Rd
 7ccc4d8bd4ff4c9d896a69ba08868ecd *man/graph.idw.Rd
 628fa350d62748daea0990a3d17be70a *man/graph.rbf.Rd
 7fc33d081f79738d4228ab8f3c9b4d9c *man/idw.cv.Rd

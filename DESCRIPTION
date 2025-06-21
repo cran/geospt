@@ -2,8 +2,8 @@ Package: geospt
 Type: Package
 Title: Geostatistical Analysis and Design of Optimal Spatial Sampling
         Networks
-Version: 1.0-5
-Date: 2025-03-07
+Version: 1.0-6
+Date: 2025-06-21
 Authors@R: c(person(given = "Carlos",
                       family = "Melo",
                       role = "aut",
@@ -20,8 +20,8 @@ Authors@R: c(person(given = "Carlos",
                       comment = c(ORCID = "0000-0002-0296-4511")))
 Maintainer: Ali Santacruz <amsantac@unal.edu.co>
 Depends: R (>= 3.5.0), gstat, genalg, MASS, sp, minqa
-Imports: limSolve, fields, gsl, plyr, TeachingDemos, sgeostat,
-        grDevices, stats, methods, graphics, utils
+Imports: fields, gsl, plyr, TeachingDemos, sgeostat, grDevices, stats,
+        methods, graphics, utils
 Description: Estimation of the variogram through trimmed mean, radial basis 
         functions (optimization, prediction and cross-validation), summary
         statistics from cross-validation, pocket plot, and design of
@@ -33,9 +33,9 @@ URL: https://github.com/amsantac/geospt
 Encoding: UTF-8
 LazyLoad: yes
 NeedsCompilation: no
-Packaged: 2025-03-09 21:17:10 UTC; spaziu
-Author: Carlos Melo [aut] (<https://orcid.org/0000-0002-5598-1913>),
+Packaged: 2025-06-21 00:13:59 UTC; spaziu
+Author: Carlos Melo [aut] (ORCID: <https://orcid.org/0000-0002-5598-1913>),
   Ali Santacruz [aut, cre],
-  Oscar Melo [aut] (<https://orcid.org/0000-0002-0296-4511>)
+  Oscar Melo [aut] (ORCID: <https://orcid.org/0000-0002-0296-4511>)
 Repository: CRAN
-Date/Publication: 2025-03-09 22:00:02 UTC
+Date/Publication: 2025-06-21 05:00:02 UTC
